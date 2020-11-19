@@ -1,0 +1,9 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Copyright © 2020 Simeon Dobchev, William Garthside,
+${licensePrefix}Joshua Saxby, Alexander Stratford & Dylan Waters.
+${licensePrefix}All rights reserved.
+<#if licenseLast??>
+${licenseLast}
+</#if>
