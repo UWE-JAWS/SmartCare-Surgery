@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>SmartCare-Surgery</title>
     </head>
     <body>
-        <h1>This is expected to serve as a proper Web Page</h1>
+        <h1>Hospital Login System</h1>
         <form method="POST" action="UserService.do">
         <p />
             View a table <br />
