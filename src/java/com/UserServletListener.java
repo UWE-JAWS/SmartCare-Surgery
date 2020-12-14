@@ -32,7 +32,7 @@ public class UserServletListener implements ServletContextListener {
         try {
             //Class.forName("com.mysql.jdbc.Driver");
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/myNewDB","dylan","123456");
+            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/smartcare-test","username","password");
             
         }
         catch(ClassNotFoundException | SQLException e){
