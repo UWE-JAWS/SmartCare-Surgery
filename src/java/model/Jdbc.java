@@ -200,15 +200,15 @@ public class Jdbc {
         String str = "select * from users";
         String insert = "INSERT INTO `Users` (`uname`, `passwd`, 'job') VALUES ('meaydin', 'meaydin','doctor')";
         String update = "UPDATE `Users` SET `passwd`='eaydin' WHERE `uname`='meaydin' ";
-        String db = "MyDB";
+        String db = "smartcare-test";
+        String dbUsername = "username";
+        String dbPassword = "password";
         
         Jdbc jdbc = new Jdbc(str);
         Connection conn = null;
-                try {
+        try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-//Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/myNewDB","dylan","123456");
-            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/"+db.trim(),"dylan","123456");
+            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/" + db.trim(), dbUsername.trim(), dbPassword.trim());
         }
         catch(ClassNotFoundException | SQLException e){
             
