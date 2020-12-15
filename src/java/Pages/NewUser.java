@@ -37,7 +37,7 @@ public class NewUser extends HttpServlet {
         String [] query = new String[3];
         query[0] = (String)request.getParameter("username");
         query[1] = (String)request.getParameter("password");
-        query[2] = (String)request.getParameter("job");
+        query[2] = "client";
         //String insert = "INSERT INTO `Users` (`username`, `password`) VALUES ('";
       
         Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 

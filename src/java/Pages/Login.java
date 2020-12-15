@@ -57,7 +57,8 @@ public class Login extends HttpServlet {
             /*String job = jdbc.retriveType(query[0]);
             String destination = jobs(job);
             request.getRequestDispatcher(destination).forward(request, response);*/
-            request.setAttribute("message", query[0]+" Welcome back");
+            String Name = jdbc.retriveName(query[0]);
+            request.setAttribute("message", Name +" Welcome back");
           
         }else{
             request.setAttribute("message", query[0]+ " Username/Password not found");

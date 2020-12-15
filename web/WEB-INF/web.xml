@@ -20,6 +20,10 @@
         <servlet-name>Update</servlet-name>
         <servlet-class>Pages.Update</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewEmployee</servlet-name>
+        <servlet-class>Pages.NewEmployee</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserServLet</servlet-name>
         <url-pattern>/UserService.do</url-pattern>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>Update</servlet-name>
         <url-pattern>/Update.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewEmployee</servlet-name>
+        <url-pattern>/NewEmployee.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

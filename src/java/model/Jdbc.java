@@ -115,6 +115,20 @@ public class Jdbc {
     return type;
     }
     
+    public String retriveName(String user) throws SQLException {
+    String type = "";
+    select("select ename from employee where UNAME='"+user.trim()+"'");
+     int cols = rs.getMetaData().getColumnCount();
+    while (rs.next()) {
+        String[] s = new String[cols];
+        for (int i = 1; i <= cols; i++) {
+            s[i-1] = rs.getString(i);
+        }
+        type = s[cols-1];
+    } // while
+    return type;
+    }
+    
     public boolean exists(String user) {
         boolean bool = false;
         try  {

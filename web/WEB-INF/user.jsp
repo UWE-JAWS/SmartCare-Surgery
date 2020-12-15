@@ -42,10 +42,7 @@
                     <td>Password:</td>
                     <td><input type="password" name="password"/></td>
                 </tr>
-                <tr>
-                    <td>Role:</td>
-                    <td><input type="text" name="job"/></td>
-                </tr>
+
                 <tr> 
                     <td> <input type="submit" value="<%=str%>"/></td>
                 </tr>
