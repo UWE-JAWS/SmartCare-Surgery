@@ -16,11 +16,11 @@
     <body>
         <div class="wrapper">
             <div class="box header">
-                <h1>Welcome, Administrator!</h1>
+                <h1>Welcome to the Administrator Dashboard!</h1>
             </div>
             <div class="box content">
                 <div class="content top">
-                    <h1>View Timetables</h1>
+                    <h1>View Patient Timetables</h1>
                 </div>
                 <div class="content mid1">
                     <h1>Edit Patient Details</h1>
@@ -28,8 +28,11 @@
                 <div class="content mid2">
                     <h1>Edit Employee Details</h1>
                 </div>
-                <div class="content bot">
+                <div class="content mid3">
                     <h1>Generate Weekly Documents</h1>
+                </div>
+                <div class="content bot">
+                    <form action="index.jsp"><input type="submit" value="Logout"><form>
                 </div>
             </div>
         </div>
