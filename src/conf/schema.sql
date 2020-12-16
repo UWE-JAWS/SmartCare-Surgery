@@ -29,5 +29,6 @@ CREATE TABLE Operations(
     oDate DATE,
     oTime TIME,
     nSlot INT,
+    -- NOTE: Change this to DECIMAL at earliest opportunity --Josh
     charge FLOAT
 );
