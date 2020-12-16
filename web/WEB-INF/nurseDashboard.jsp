@@ -20,10 +20,13 @@
             </div>
             <div class="box content">
                 <div class="content top">
-                    <h1>View Patient timetables</h1>
+                    <a href= "conErr.jsp">View Patient timetables</a>
                 </div>
                 <div class="content mid">
-                    <h1>Prescription page</h1>
+                    <h3>Prescription page</h3>
+                </div>
+                <div class="content bot">
+                    <form action="index.jsp"><input type="submit" value="Logout"></form>
                 </div>
             </div>
         </div>
