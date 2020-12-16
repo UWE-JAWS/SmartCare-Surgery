@@ -18,7 +18,15 @@ body {
     justify-content: center;
 }
 
-.mid {
+.mid1 {
+    grid-area: mid;
+    background-color: #ffffff;
+    padding: 1vh;
+    display: flex;
+    justify-content: center;
+}
+
+.mid2 {
     grid-area: mid;
     background-color: #ffffff;
     padding: 1vh;
