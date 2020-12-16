@@ -23,7 +23,7 @@
         <form action="/SmartCare-Surgery/PatientDashboard/ManagePrescription">
             <input type="submit" value="Request a Repeat Prescription"/>
         </form>
-        <form action="/SmartCare-Surgery/Logout">
+        <form action="/SmartCare-Surgery/index.jsp">
             <input type="submit" value="Log Out"/>
         </form>
     </body>
