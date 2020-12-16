@@ -9,9 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>SmartCare-Surgery Nurse Dashboard</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <body>Welcome to the Nurse Dashboard</body>
+        <body> <br>Patient Timetable </body>
+        <body> <br>Issue Prescription </body>
     </body>
 </html>
