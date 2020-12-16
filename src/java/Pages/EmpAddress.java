@@ -3,7 +3,7 @@
  * Joshua Saxby, Alexander Stratford & Dylan Waters.
  * All rights reserved.
  */
-package com;
+package Pages;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Jdbc;
 
 /**
  *
- * @author joshua
+ * @author Dylan
  */
-public class PatientDashboard extends HttpServlet {
+public class EmpAddress extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,15 +29,32 @@ public class PatientDashboard extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+       
+         HttpSession session = request.getSession(false);
         
-        HttpSession session = request.getSession();
+        Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 
+        if (jdbc == null)
+            request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
+        else {
+            String [] query = new String[3];
         
-        request.setAttribute("route", request.getContextPath());
-        
-        request.getRequestDispatcher("patientDashboard.jsp").forward(request, response);
+            query[0] = (String)request.getParameter("fullname");
+            query[1] = (String)request.getParameter("address");
+            query[2] = (String)request.getParameter("username");  
+            
+            if(jdbc.exists(query[2])) {
+                jdbc.insertAdress(query);
+                request.setAttribute("msg", ""+query[0]+"'s address has been updated");
+
+            }
+             else {
+                request.setAttribute("msg", ""+query[2]+"Does not exist in Users");
+                
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

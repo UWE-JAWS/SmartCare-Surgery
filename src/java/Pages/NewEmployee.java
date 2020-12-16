@@ -3,7 +3,7 @@
  * Joshua Saxby, Alexander Stratford & Dylan Waters.
  * All rights reserved.
  */
-package com;
+package Pages;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Jdbc;
 
 /**
  *
- * @author joshua
+ * @author Dylan
  */
-public class PatientDashboard extends HttpServlet {
+public class NewEmployee extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,11 +33,31 @@ public class PatientDashboard extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         
-        request.setAttribute("route", request.getContextPath());
+        String [] query = new String[3];
+        query[0] = (String)request.getParameter("username");
+        query[1] = (String)request.getParameter("password");
+        query[2] = (String)request.getParameter("role");
+        //String insert = "INSERT INTO `Users` (`username`, `password`) VALUES ('";
+      
+        Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 
         
-        request.getRequestDispatcher("patientDashboard.jsp").forward(request, response);
+        if (jdbc == null)
+            request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
+        
+        if(query[0].equals("") ) {
+            request.setAttribute("message", "Username cannot be NULL");
+        } 
+        else if(jdbc.exists(query[0])){
+            request.setAttribute("message", query[0]+" is already taken as username");
+        }
+        else {
+            jdbc.insert(query);
+            request.setAttribute("message", query[0]+" is added");
+        }
+         
+        request.getRequestDispatcher("/WEB-INF/employee.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
