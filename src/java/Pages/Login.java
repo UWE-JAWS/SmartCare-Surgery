@@ -54,11 +54,11 @@ public class Login extends HttpServlet {
             request.setAttribute("message", "Username cannot be NULL");
         } 
         if(jdbc.login(query[0],query[1])){
-            /*String job = jdbc.retriveType(query[0]);
+            String job = jdbc.retriveType(query[0]);
             String destination = jobs(job);
-            request.getRequestDispatcher(destination).forward(request, response);*/
-            String Name = jdbc.retriveName(query[0]);
-            request.setAttribute("message", Name +" Welcome back");
+            request.getRequestDispatcher(destination).forward(request, response);
+            //String Name = jdbc.retriveName(query[0]);
+            //request.setAttribute("message", Name +" Welcome back");
           
         }else{
             request.setAttribute("message", query[0]+ " Username/Password not found");
@@ -71,7 +71,7 @@ public class Login extends HttpServlet {
       public String jobs(String string){
           String dest = null;
           if(string.equals("doctor")){
-               dest = "/WEB-INF/conErr.jsp";
+               dest = "/doctorDashboard.jsp";
           }else if(string.equals("nurse")){
                dest = "/WEB-INF/conErr.jsp";
           }else if(string.equals("admin")){
