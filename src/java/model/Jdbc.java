@@ -103,7 +103,7 @@ public class Jdbc {
     }*/
     public String retriveType(String user) throws SQLException {
     String type = "";
-    select("select Role from users where UNAME='"+user.trim()+"'");
+    select("select ROLE from users where UNAME='"+user.trim()+"'");
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];

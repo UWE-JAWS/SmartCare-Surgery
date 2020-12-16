@@ -71,7 +71,7 @@ public class Login extends HttpServlet {
       public String jobs(String string){
           String dest = null;
           if(string.equals("doctor")){
-               dest = "/WEB-INF/conErr.jsp";
+               dest = "/doctorDashboard.jsp";
           }else if(string.equals("nurse")){
                dest = "/nurseDashboard.jsp";
           }else if(string.equals("admin")){

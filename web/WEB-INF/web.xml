@@ -28,6 +28,10 @@
         <servlet-name>NewEmployee</servlet-name>
         <servlet-class>Pages.NewEmployee</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>doctorDashboard</servlet-name>
+        <servlet-class>Pages.doctorDashboard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserServLet</servlet-name>
         <url-pattern>/UserService.do</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>NewEmployee</servlet-name>
         <url-pattern>/NewEmployee.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>doctorDashboard</servlet-name>
+        <url-pattern>/doctorDashboard.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
