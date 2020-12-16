@@ -9,9 +9,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Servlet PatientDashboard</title>
+        <title>SmartCare | Patient Dashboard</title>
     </head>
     <body>
-        <h1>Servlet PatientDashboard at ${route}</h1>
+        <h1>Patient Dashboard</h1>
+        <!--TODO: Replace placeholder with username once sessions are implemented-->
+        <p>Welcome, <em>User Name</em></p>
+        <p>What would you like to do today?</p>
+        <!-- TODO: Change lazy way of making button links into proper <a> links -->
+        <form action="PatientDashboard/BookAppointment">
+            <input type="submit" value="Book an Appointment"/>
+        </form>
+        <form action="PatientDashboard/ManagePrescription">
+            <input type="submit" value="Request a Repeat Prescription"/>
+        </form>
     </body>
 </html>
