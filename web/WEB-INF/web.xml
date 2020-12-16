@@ -12,6 +12,10 @@
         <servlet-name>UserServLet</servlet-name>
         <servlet-class>com.UserServLet</servlet-class>
     </servlet>
+        <servlet>
+        <servlet-name>NurseService</servlet-name>
+        <servlet-class>com.NurseService</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>NewUser</servlet-name>
         <servlet-class>Pages.NewUser</servlet-class>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NurseService</servlet-name>
+        <url-pattern>/NurseService.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NewUser</servlet-name>
