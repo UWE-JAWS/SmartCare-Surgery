@@ -22,8 +22,11 @@
                 <div class="content top">
                     <h1>View Timetables</h1>
                 </div>
-                <div class="content mid">
-                    <h1>Edit Records</h1>
+                <div class="content mid1">
+                    <h1>Edit Patient Details</h1>
+                </div>
+                <div class="content mid2">
+                    <h1>Edit Employee Details</h1>
                 </div>
                 <div class="content bot">
                     <h1>Generate Weekly Documents</h1>
