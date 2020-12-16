@@ -7,7 +7,7 @@ body {
     display: grid;
     grid-gap: 15px;
     grid-template-areas:
-        "top mid1 mid2 bot";
+        "top mid1 mid2 mid3 bot";
 }
 
 .top {
@@ -28,6 +28,14 @@ body {
 
 .mid2 {
     grid-area: mid2;
+    background-color: #ffffff;
+    padding: 1vh;
+    display: flex;
+    justify-content: center;
+}
+
+.mid3 {
+    grid-area: mid3;
     background-color: #ffffff;
     padding: 1vh;
     display: flex;
