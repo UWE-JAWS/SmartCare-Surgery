@@ -13,5 +13,8 @@
     </head>
     <body>
         <h1>Book Appointments</h1>
+        <form action="/SmartCare-Surgery/PatientDashboard">
+            <input type="submit" value="Back" />
+        </form>
     </body>
 </html>

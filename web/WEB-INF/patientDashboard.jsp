@@ -17,11 +17,14 @@
         <p>Welcome, <em>User Name</em></p>
         <p>What would you like to do today?</p>
         <!-- TODO: Change lazy way of making button links into proper <a> links -->
-        <form action="PatientDashboard/BookAppointment">
+        <form action="/SmartCare-Surgery/PatientDashboard/BookAppointment">
             <input type="submit" value="Book an Appointment"/>
         </form>
-        <form action="PatientDashboard/ManagePrescription">
+        <form action="/SmartCare-Surgery/PatientDashboard/ManagePrescription">
             <input type="submit" value="Request a Repeat Prescription"/>
+        </form>
+        <form action="/SmartCare-Surgery/Logout">
+            <input type="submit" value="Log Out"/>
         </form>
     </body>
 </html>
