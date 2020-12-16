@@ -32,6 +32,10 @@
         <servlet-name>doctorDashboard</servlet-name>
         <servlet-class>Pages.doctorDashboard</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PatientDashboard</servlet-name>
+        <servlet-class>Pages.PatientDashboard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserServLet</servlet-name>
         <url-pattern>/UserService.do</url-pattern>
@@ -59,6 +63,10 @@
     <servlet-mapping>
         <servlet-name>doctorDashboard</servlet-name>
         <url-pattern>/doctorDashboard.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PatientDashboard</servlet-name>
+        <url-pattern>/PatientDashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
