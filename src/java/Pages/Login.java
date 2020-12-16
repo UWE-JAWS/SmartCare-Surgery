@@ -77,7 +77,7 @@ public class Login extends HttpServlet {
           }else if(string.equals("admin")){
                dest = "/adminDashboard.jsp";
           }else if(string.equals("client")){
-               dest = "/WEB-INF/conErr.jsp";
+               dest = "/PatientDashboard";
           }
           return dest;
     }
