@@ -56,6 +56,29 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "userId")
     private Collection<Clients> clientsCollection;
 
+    public enum Role {
+        ADMIN,
+        CLIENT,
+        DOCTOR,
+        NURSE;
+        
+        public static Role from_char(char r) {
+            switch (r) {
+            case 'A':
+                return ADMIN;
+            case 'C':
+                return CLIENT;
+            case 'D':
+                return DOCTOR;
+            case 'N':
+                return NURSE;
+            default:
+                // TODO: consider throwing error rather than silently returning null?
+                return null;
+            }
+        }
+    };
+    
     public Users() {
     }
 
