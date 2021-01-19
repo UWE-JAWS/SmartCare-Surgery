@@ -16,7 +16,7 @@
         <servlet-name>UserServLet</servlet-name>
         <servlet-class>com.UserServLet</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
         <servlet-name>NurseService</servlet-name>
         <servlet-class>com.NurseService</servlet-class>
     </servlet>
@@ -33,6 +33,10 @@
         <servlet-class>Pages.NewEmployee</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>BookAppointment</servlet-name>
+        <servlet-class>Pages.BookAppointment</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>doctorDashboard</servlet-name>
         <servlet-class>Pages.doctorDashboard</servlet-class>
     </servlet>
@@ -42,7 +46,11 @@
     </servlet>
     <servlet>
         <servlet-name>ManagePrescription</servlet-name>
-        <servlet-class>com.ManagePrescription</servlet-class>
+        <servlet-class>Pages.ManagePrescription</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>weeklyDocuments</servlet-name>
+        <servlet-class>Pages.weeklyDocuments</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserServLet</servlet-name>
@@ -78,11 +86,19 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PatientDashboard</servlet-name>
-        <url-pattern>/PatientDashboard</url-pattern>
+        <url-pattern>/PatientDashboard.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookAppointment</servlet-name>
+        <url-pattern>/BookAppointment.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagePrescription</servlet-name>
         <url-pattern>/PatientDashboard/ManagePrescription</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>weeklyDocuments</servlet-name>
+        <url-pattern>/weeklyDocuments.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

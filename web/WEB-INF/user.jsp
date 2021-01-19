@@ -32,7 +32,7 @@
             <table>
                 <tr>
                     <th></th>
-                    <th>Please provide your following details, Ignore role if logging in</th>
+                    <th>Please provide your following details:</th>
                 </tr>
                 <tr>
                     <td>Username:</td>

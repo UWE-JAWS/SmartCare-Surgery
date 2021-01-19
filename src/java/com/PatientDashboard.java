@@ -7,11 +7,13 @@ package com;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Jdbc;
 
 /**
  *
@@ -28,15 +30,30 @@ public class PatientDashboard extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
+        String qry = "select * from USERS";
+       
         HttpSession session = request.getSession();
         
-        request.setAttribute("route", request.getContextPath());
+        response.setContentType("text/html;charset=UTF-8");
         
-        request.getRequestDispatcher("patientDashboard.jsp").forward(request, response);
+        Jdbc dbBean = new Jdbc();
+        //conn = DriverManager.getConnection("jdbc:derby://localhost:1527/"+db.trim(),"dylan","123456");
+        dbBean.connect((Connection)request.getServletContext().getAttribute("connection"));
+        session.setAttribute("dbbean", dbBean);
+        
+        if((Connection)request.getServletContext().getAttribute("connection")==null)
+            request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
+        
+        if(request.getParameter("tbl").equals("Book")){
+            request.setAttribute("msg", "new");
+            request.getRequestDispatcher("/WEB-INF/bookAppointment.jsp").forward(request, response);
+        } 
+        else if(request.getParameter("tbl").equals("Prescription")){
+            request.setAttribute("msg", "login");
+            request.getRequestDispatcher("/WEB-INF/managePrescription.jsp").forward(request, response);    
+        }        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

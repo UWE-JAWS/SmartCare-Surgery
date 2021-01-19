@@ -54,7 +54,7 @@ public class AdminServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/EmployeeAddress.jsp").forward(request, response);    
         }  
         else if(request.getParameter("tbl").equals("Documents")){
-            request.getRequestDispatcher("adminDashboard.jsp").forward(request, response);    
+            request.getRequestDispatcher("/WEB-INF/weeklyDocuments.jsp").forward(request, response);    
         }  
         else if(request.getParameter("tbl").equals("NewEmp")){
             request.setAttribute("msg", "new");
