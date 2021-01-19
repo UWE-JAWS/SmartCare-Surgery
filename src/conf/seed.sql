@@ -4,33 +4,32 @@ DELETE FROM Clients;
 DELETE FROM Employees;
 DELETE FROM Users;
 
-INSERT INTO Users VALUES(DEFAULT, 'jsaxby', 'password', 'A'); -- Admin
+INSERT INTO Users VALUES
+    (DEFAULT, 'jsaxby', 'password', 'A'), -- Admin
+    (DEFAULT, 'mrbump', 'clumsy', 'C'), -- Client
+    (DEFAULT, 'dbeat', 'funky', 'D'), -- Doctor
+    (DEFAULT, 'cjrwhitty', 'nextslideplease', 'D'), -- Doctor
+    (DEFAULT, 'thetasigma', 'wouldyoulikeajellybaby?', 'D'), -- Doctor
+    (DEFAULT, 'fnightingale', 'ladywiththelamp', 'N'), -- Nurse
+    (DEFAULT, 'anurse', 'iamwhatmynameis', 'N'), -- Nurse
+    (DEFAULT, 'turi', 'cabbages', 'N'); -- Nurse
 
-INSERT INTO Employees VALUES(
-    DEFAULT, -- primary key
-    'Joshua Saxby',
-    'UWE BRISTOL',
-    (SELECT id AS user_id FROM Users WHERE name = 'jsaxby')
-);
-
-INSERT INTO Users VALUES(DEFAULT, 'mrbump', 'clumsy', 'C'); -- Client
+INSERT INTO Employees VALUES
+    (DEFAULT, 'Joshua Saxby', 'UWE BRISTOL', (SELECT id FROM Users WHERE name = 'jsaxby')),
+    (DEFAULT, 'Doctor Beat', 'USA', (SELECT id FROM Users WHERE name = 'dbeat')),
+    (DEFAULT, 'Prof. Chris Whitty', 'SW1A 0AA', (SELECT id FROM Users WHERE name = 'cjrwhitty')),
+    (DEFAULT, 'Doctor Who', 'Gallifrey', (SELECT id FROM Users WHERE name = 'thetasigma')),
+    (DEFAULT, 'Florence Nightingale', 'Ye Aulde Englande', (SELECT id FROM Users WHERE name = 'fnightingale')),
+    (DEFAULT, 'Nurse Nurse', 'Yorkshire', (SELECT id FROM Users WHERE name = 'anurse')),
+    (DEFAULT, 'Nurse Uri', 'Vladivostock', (SELECT id FROM Users WHERE name = 'turi'));
 
 INSERT INTO Clients VALUES(
     DEFAULT, -- primary key
     'Mr Bump',
     'Fictional Book, Libraryshire',
     'N',
-    (SELECT id AS user_id FROM Users WHERE name = 'mrbump')
+    (SELECT id FROM Users WHERE name = 'mrbump')
 ); -- NHS Patient
-
-INSERT INTO Users VALUES(DEFAULT, 'dbeat', 'funky', 'D'); -- Doctor
-
-INSERT INTO Employees VALUES(
-    DEFAULT, -- primary key
-    'Doctor Beat',
-    'USA',
-    (SELECT id AS user_id FROM Users WHERE name = 'dbeat')
-);
 
 INSERT INTO Operations VALUES(
     DEFAULT, -- primary key
