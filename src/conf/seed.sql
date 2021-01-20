@@ -5,44 +5,36 @@ DELETE FROM Employees;
 DELETE FROM Users;
 
 INSERT INTO Users VALUES
-    (DEFAULT, 'jsaxby', 'password', 'A'), -- Admin
-    (DEFAULT, 'mrbump', 'clumsy', 'C'), -- Client
-    (DEFAULT, 'dbeat', 'funky', 'D'), -- Doctor
-    (DEFAULT, 'cjrwhitty', 'nextslideplease', 'D'), -- Doctor
-    (DEFAULT, 'thetasigma', 'wouldyoulikeajellybaby?', 'D'), -- Doctor
-    (DEFAULT, 'fnightingale', 'ladywiththelamp', 'N'), -- Nurse
-    (DEFAULT, 'anurse', 'iamwhatmynameis', 'N'), -- Nurse
-    (DEFAULT, 'turi', 'cabbages', 'N'); -- Nurse
+    ('jsaxby', 'password', 'A'), -- Admin
+    ('mrbump', 'clumsy', 'C'), -- Client
+    ('dbeat', 'funky', 'D'), -- Doctor
+    ('cjrwhitty', 'nextslideplease', 'D'), -- Doctor
+    ('thetasigma', 'wouldyoulikeajellybaby?', 'D'), -- Doctor
+    ('fnightingale', 'ladywiththelamp', 'N'), -- Nurse
+    ('anurse', 'iamwhatmynameis', 'N'), -- Nurse
+    ('turi', 'cabbages', 'N'); -- Nurse
 
 INSERT INTO Employees VALUES
-    (DEFAULT, 'Joshua Saxby', 'UWE BRISTOL', (SELECT id FROM Users WHERE name = 'jsaxby')),
-    (DEFAULT, 'Doctor Beat', 'USA', (SELECT id FROM Users WHERE name = 'dbeat')),
-    (DEFAULT, 'Prof. Chris Whitty', 'SW1A 0AA', (SELECT id FROM Users WHERE name = 'cjrwhitty')),
-    (DEFAULT, 'Doctor Who', 'Gallifrey', (SELECT id FROM Users WHERE name = 'thetasigma')),
-    (DEFAULT, 'Florence Nightingale', 'Ye Aulde Englande', (SELECT id FROM Users WHERE name = 'fnightingale')),
-    (DEFAULT, 'Nurse Nurse', 'Yorkshire', (SELECT id FROM Users WHERE name = 'anurse')),
-    (DEFAULT, 'Nurse Uri', 'Vladivostock', (SELECT id FROM Users WHERE name = 'turi'));
+    (DEFAULT, 'Joshua Saxby', 'UWE BRISTOL', 'jsaxby'),
+    (DEFAULT, 'Doctor Beat', 'USA', 'dbeat'),
+    (DEFAULT, 'Prof. Chris Whitty', 'SW1A 0AA', 'cjrwhitty'),
+    (DEFAULT, 'Doctor Who', 'Gallifrey', 'thetasigma'),
+    (DEFAULT, 'Florence Nightingale', 'Ye Aulde Englande', 'fnightingale'),
+    (DEFAULT, 'Nurse Nurse', 'Yorkshire', 'anurse'),
+    (DEFAULT, 'Nurse Uri', 'Vladivostock', 'turi');
 
 INSERT INTO Clients VALUES(
     DEFAULT, -- primary key
     'Mr Bump',
     'Fictional Book, Libraryshire',
     'N',
-    (SELECT id FROM Users WHERE name = 'mrbump')
+    'mrbump'
 ); -- NHS Patient
 
 INSERT INTO Operations VALUES(
     DEFAULT, -- primary key
-    (
-        SELECT Employees.id FROM Employees
-        JOIN Users ON Employees.user_id = Users.id
-        WHERE Users.name = 'dbeat'
-    ),
-    (
-        SELECT Clients.id FROM Clients
-        JOIN Users ON Clients.user_id = Users.id
-        WHERE Users.name = 'mrbump'
-    ),
+    (SELECT id FROM Employees WHERE username = 'dbeat'),
+    (SELECT id FROM Clients WHERE username = 'mrbump'),
     '2021-01-20', -- take care, ISO 8601 format!
     '12:23:00', -- as above
     1, -- we need to consider what the meaning of "slot" is
