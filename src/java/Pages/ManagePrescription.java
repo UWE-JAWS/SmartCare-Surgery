@@ -3,7 +3,7 @@
  * Joshua Saxby, Alexander Stratford & Dylan Waters.
  * All rights reserved.
  */
-package com;
+package Pages;
 
 import java.io.IOException;
 import java.io.PrintWriter;

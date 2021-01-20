@@ -3,11 +3,10 @@
  * Joshua Saxby, Alexander Stratford & Dylan Waters.
  * All rights reserved.
  */
-package com;
+package Pages;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +16,9 @@ import model.Jdbc;
 
 /**
  *
- * @author joshua
+ * @author Dylan
  */
-public class PatientDashboard extends HttpServlet {
+public class patientDetails extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,30 +29,34 @@ public class PatientDashboard extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String qry = "select * from USERS";
-       
-        HttpSession session = request.getSession();
-        
         response.setContentType("text/html;charset=UTF-8");
+       
+         HttpSession session = request.getSession(false);
         
-        Jdbc dbBean = new Jdbc();
-        //conn = DriverManager.getConnection("jdbc:derby://localhost:1527/"+db.trim(),"dylan","123456");
-        dbBean.connect((Connection)request.getServletContext().getAttribute("connection"));
-        session.setAttribute("dbbean", dbBean);
-        
-        if((Connection)request.getServletContext().getAttribute("connection")==null)
+        Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 
+        if (jdbc == null)
             request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
+        else {
+            String [] query = new String[4];
         
-        if(request.getParameter("tbl").equals("Book")){
-            request.setAttribute("msg", "new");
-            request.getRequestDispatcher("/WEB-INF/bookAppointment.jsp").forward(request, response);
-        } 
-        else if(request.getParameter("tbl").equals("Prescription")){
-            request.setAttribute("msg", "login");
-            request.getRequestDispatcher("/WEB-INF/managePrescription.jsp").forward(request, response);    
-        }        
+            query[0] = (String)request.getParameter("fullname");
+            query[1] = (String)request.getParameter("address");
+            query[2] = (String)request.getParameter("patientType");
+            query[3] = (String)request.getParameter("username");  
+            
+            if(jdbc.exists(query[3])) {
+                jdbc.insertPatAdress(query);
+                request.setAttribute("msg", ""+query[0]+"'s details has been updated");
+
+            }
+             else {
+                request.setAttribute("msg", ""+query[2]+"Does not exist in Users");
+                
+            }
+        }
+        request.getRequestDispatcher("/WEB-INF/patientDetails.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

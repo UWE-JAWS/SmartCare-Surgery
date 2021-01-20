@@ -23,6 +23,7 @@
                     View a table <br />
                     <input type="radio" name="tbl" value="Timetable">View Daily Patient Timetables<br />
                     <input type="radio" name="tbl" value="Prescription">Access Prescriptions<br />
+                    <input type="radio" name="tbl" value="Operation">Book Operation<br />
                     <input type=submit value="Action"> <br /><div class="content a">
                         </form>
                     </div>

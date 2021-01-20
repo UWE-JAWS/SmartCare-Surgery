@@ -3,11 +3,14 @@
  * Joshua Saxby, Alexander Stratford & Dylan Waters.
  * All rights reserved.
  */
-package com;
+package Pages;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +20,9 @@ import model.Jdbc;
 
 /**
  *
- * @author joshua
+ * @author Dylan
  */
-public class PatientDashboard extends HttpServlet {
+public class weeklyDocuments extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,30 +33,24 @@ public class PatientDashboard extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String qry = "select * from USERS";
-       
-        HttpSession session = request.getSession();
-        
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         
-        Jdbc dbBean = new Jdbc();
-        //conn = DriverManager.getConnection("jdbc:derby://localhost:1527/"+db.trim(),"dylan","123456");
-        dbBean.connect((Connection)request.getServletContext().getAttribute("connection"));
-        session.setAttribute("dbbean", dbBean);
+        HttpSession session = request.getSession(false);
+        String documents = "";
+        String [] query = new String[2];
+        query[0] = (String)request.getParameter("startDate");
+        query[1] = (String)request.getParameter("endDate");
+      
+        Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 
         
-        if((Connection)request.getServletContext().getAttribute("connection")==null)
-            request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
-        
-        if(request.getParameter("tbl").equals("Book")){
-            request.setAttribute("msg", "new");
-            request.getRequestDispatcher("/WEB-INF/bookAppointment.jsp").forward(request, response);
-        } 
-        else if(request.getParameter("tbl").equals("Prescription")){
-            request.setAttribute("msg", "login");
-            request.getRequestDispatcher("/WEB-INF/managePrescription.jsp").forward(request, response);    
-        }        
+        documents = jdbc.weeklyRecords(query[0],query[1]);
+        request.setAttribute("message", "" + documents + "here is the documents for this period.");
+          
+
+         
+        request.getRequestDispatcher("/WEB-INF/weeklyDocuments.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,7 +65,13 @@ public class PatientDashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(weeklyDocuments.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(weeklyDocuments.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -82,7 +85,13 @@ public class PatientDashboard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(weeklyDocuments.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(weeklyDocuments.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

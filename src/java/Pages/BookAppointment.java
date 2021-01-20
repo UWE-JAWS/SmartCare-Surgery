@@ -3,16 +3,21 @@
  * Joshua Saxby, Alexander Stratford & Dylan Waters.
  * All rights reserved.
  */
-package com;
+package Pages;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Jdbc;
 
 /**
  *
@@ -31,13 +36,42 @@ public class BookAppointment extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         
+        String [] query = new String[4];
+        query[0] = (String)request.getParameter("username");
+        query[1] = (String)request.getParameter("docName");
+        query[2] = (String)request.getParameter("appDate");
+        query[3] = (String)request.getParameter("appt");
+      
+        Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 
+        
+        if (jdbc == null){
+            request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
+        }
+        if(query[0].equals("") ) {
+            request.setAttribute("message", "Username cannot be NULL");
+        } 
+        if(jdbc.exists(query[0])){
+            String empID = jdbc.retriveEmployeeID(query[1]);
+            String cliID = jdbc.retriveClientID(query[0]);
+            query[0] = cliID;
+            query[1] = empID; 
+            jdbc.bookApp(query);
+            //request.setAttribute("message", Name +" Welcome back");
+          
+        }else{
+            request.setAttribute("message", query[0]+ " Username not found");
+        }
+
+         
         request.getRequestDispatcher("/WEB-INF/bookAppointment.jsp").forward(request, response);
     }
+      
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -51,7 +85,11 @@ public class BookAppointment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(BookAppointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -65,7 +103,13 @@ public class BookAppointment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(BookAppointment.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(BookAppointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
