@@ -18,7 +18,7 @@ import model.Jdbc;
  *
  * @author Dylan
  */
-public class EmpAddress extends HttpServlet {
+public class patientDetails extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,7 +29,7 @@ public class EmpAddress extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
        
@@ -39,15 +39,16 @@ public class EmpAddress extends HttpServlet {
         if (jdbc == null)
             request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
         else {
-            String [] query = new String[3];
+            String [] query = new String[4];
         
             query[0] = (String)request.getParameter("fullname");
             query[1] = (String)request.getParameter("address");
-            query[2] = (String)request.getParameter("username");  
+            query[2] = (String)request.getParameter("patientType");
+            query[3] = (String)request.getParameter("username");  
             
-            if(jdbc.exists(query[2])) {
-                jdbc.insertEmpAdress(query);
-                request.setAttribute("msg", ""+query[0]+"'s address has been updated");
+            if(jdbc.exists(query[3])) {
+                jdbc.insertPatAdress(query);
+                request.setAttribute("msg", ""+query[0]+"'s details has been updated");
 
             }
              else {
@@ -55,6 +56,7 @@ public class EmpAddress extends HttpServlet {
                 
             }
         }
+        request.getRequestDispatcher("/WEB-INF/patientDetails.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

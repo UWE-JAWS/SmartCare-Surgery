@@ -203,13 +203,30 @@ public class Jdbc {
         }
        return bool; 
     }
-        public void insertAdress(String[] str){
+        public void insertEmpAdress(String[] str){
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement("INSERT INTO EMPLOYEE VALUES (?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, str[0].trim()); 
             ps.setString(2, str[1].trim());
             ps.setString(3, str[2]);
+            ps.executeUpdate();
+        
+            ps.close();
+            System.out.println("1 row added.");
+        } catch (SQLException ex) {
+            Logger.getLogger(Jdbc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+    }
+         public void insertPatAdress(String[] str){
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement("INSERT INTO CLIENTS(CNAME,CADDRESS,CTYPE,UNAME) VALUES (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setString(1, str[0].trim()); 
+            ps.setString(2, str[1].trim());
+            ps.setString(3, str[2].trim());
+            ps.setString(4,str[3]);
             ps.executeUpdate();
         
             ps.close();

@@ -52,6 +52,10 @@
         <servlet-name>weeklyDocuments</servlet-name>
         <servlet-class>Pages.weeklyDocuments</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>patientDetails</servlet-name>
+        <servlet-class>Pages.patientDetails</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserServLet</servlet-name>
         <url-pattern>/UserService.do</url-pattern>
@@ -99,6 +103,10 @@
     <servlet-mapping>
         <servlet-name>weeklyDocuments</servlet-name>
         <url-pattern>/weeklyDocuments.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>patientDetails</servlet-name>
+        <url-pattern>/patientDetails.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
