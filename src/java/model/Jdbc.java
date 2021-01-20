@@ -209,7 +209,8 @@ public class Jdbc {
         }
     }
     public void delete(String user){
-       
+      
+      // FIXME: Not SQL-injection tolerant
       String query = "DELETE FROM Users " +
                    "WHERE uname = '"+user.trim()+"'";
       
