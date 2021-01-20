@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 public class Jdbc {
     
     Connection connection = null;
-    Statement statement = null;
+    PreparedStatement statement = null;
     ResultSet rs = null;
     //String query = null;
     
@@ -81,12 +81,17 @@ public class Jdbc {
         return b.toString();
     }//makeHtmlTable
     
-    private void select(String query){
+    private void select(String query, Object... parameters){
         //Statement statement = null;
         
         try {
-            statement = connection.createStatement();
-            rs = statement.executeQuery(query);
+            statement = connection.prepareStatement(query);
+            // now set any parameters
+            for (int i = 0; i < parameters.length; i++) {
+                // NOTE: check data type.This may or may not work
+                statement.setObject(i + 1, parameters[i]);
+            }
+            rs = statement.executeQuery();
             //statement.close();
         }
         catch(SQLException e) {
@@ -110,7 +115,7 @@ public class Jdbc {
     }
     public String retriveType(String user) throws SQLException {
     String type = "";
-    select("select ROLE from users where UNAME='"+user.trim()+"'");
+    select("select ROLE from users where UNAME=?", user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
@@ -164,7 +169,7 @@ public class Jdbc {
     
     public String retriveName(String user) throws SQLException {
     String type = "";
-    select("select ename from employee where UNAME='"+user.trim()+"'");
+    select("select ename from employee where UNAME=?", user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
@@ -179,7 +184,7 @@ public class Jdbc {
     public boolean exists(String user) {
         boolean bool = false;
         try  {
-            select("select UNAME from users where UNAME='"+user+"'");
+            select("select UNAME from users where UNAME=?", user);
             if(rs.next()) {
                 System.out.println("TRUE");         
                 bool = true;
@@ -193,7 +198,7 @@ public class Jdbc {
     public boolean login(String user, String password){
         boolean bool = false;
         try{
-            select("select uname from users where UNAME='"+user+"'" +" and PASSWD='" +password+"'");
+            select("select uname from users where UNAME=? and PASSWD=?", user, password);
             if(rs.next()){
                 System.out.println("Login Successfull");
                 bool = true;
@@ -269,13 +274,14 @@ public class Jdbc {
         }
     }
     public void delete(String user){
-       
+      
+      // FIXME: Not SQL-injection tolerant
       String query = "DELETE FROM Users " +
                    "WHERE uname = '"+user.trim()+"'";
       
         try {
-            statement = connection.createStatement();
-            statement.executeUpdate(query);
+            statement = connection.prepareStatement(query);
+            statement.executeUpdate();
         }
         catch(SQLException e) {
             System.out.println("way way"+e);
