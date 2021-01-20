@@ -22,7 +22,7 @@
                 for (int i = 0; i < fees.size(); i++) {
                     out.println("<tr>");
                     out.println("<td>" + fees.get(i).getID() + "</td>");
-  //                  out.println("<td>" + fees.get(i).getPatientID + "</td>");
+                    out.println("<td>" + fees.get(i).getPatientID() + "</td>");
                     out.println("<td>" + fees.get(i).getTransactionAmount() + "</td>");
                     out.println("<td>" + fees.get(i).getTransactionDate() + "</td>");
                     out.println("</tr>");

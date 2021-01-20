@@ -22,7 +22,7 @@ public class FeesDB {
             State = Connection.createStatement();
             ResultSet = State.executeQuery("SELECT * FROM OPERATIONS");
             while (ResultSet.next()) {
-                result.add(new Fees(ResultSet.getInt(1), ResultSet.getInt(2), ResultSet.getString(3), ResultSet.getDouble(4)));
+                result.add(new Fees(ResultSet.getInt(1), ResultSet.getInt(2), ResultSet.getDouble(3), ResultSet.getString(4)));
             }
             ResultSet.close();
             State.close();
