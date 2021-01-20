@@ -1,33 +1,33 @@
 CREATE TABLE Users(
-	uname VARCHAR(20) PRIMARY KEY,
-	passwd VARCHAR(20),
-	role VARCHAR(10)
+    username VARCHAR(255) NOT NULL PRIMARY KEY,
+    password VARCHAR(255) NOT NULL, -- TODO: Replace with password_hash, possible binary type
+    role CHAR(1) CONSTRAINT role_constraint CHECK (role IN ('A', 'C', 'D', 'N')) -- {Admin, Client, Doctor, Nurse}
 );
 
 CREATE TABLE Clients(
-	cID INT NOT NULL PRIMARY KEY
-            GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-	cName VARCHAR(50),
-	cAddress VARCHAR(100),
-	cType VARCHAR(10),
-	uName VARCHAR(20) REFERENCES Users(uname)
+    id INT NOT NULL PRIMARY KEY
+                    GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    name VARCHAR(255),
+    address VARCHAR(255),
+    type CHAR(1) CONSTRAINT type_constraint CHECK (type IN ('N', 'P')), -- assumption: {NHS, Private}
+    username VARCHAR(255) REFERENCES Users(username) -- WARN: Referential Integrity, uncheckable constraint (User(id = user_id).role = 'C')
 );
 
-CREATE TABLE employee(
-	eID INT NOT NULL PRIMARY KEY
-            GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-	eName VARCHAR(50),
-	eAddress VARCHAR(100),
-	uName VARCHAR(20) REFERENCES Users(uname)
+CREATE TABLE Employees(
+    id INT NOT NULL PRIMARY KEY
+                    GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    name VARCHAR(255),
+    address VARCHAR(255),
+    username VARCHAR(255) NOT NULL REFERENCES Users(username) UNIQUE -- WARN: Referential Integrity, uncheckable constraint (User(id = user_id).role != 'C')
 );
 
 CREATE TABLE Operations(
-    oID INT NOT NULL PRIMARY KEY
-            GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-    eID INT REFERENCES Employee(eID),
-    cID INT REFERENCES Clients(cID),
-    oDate DATE,
-    oTime TIME,
-    nSlot INT,
-    charge FLOAT
+    id INT NOT NULL PRIMARY KEY
+                    GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    employee_id INT NOT NULL REFERENCES Employees(id),
+    client_id INT NOT NULL REFERENCES Clients(id),
+    start_date DATE,
+    start_time TIME,
+    slot SMALLINT,
+    charge DECIMAL(8, 2) CONSTRAINT charge_constraint CHECK (charge >= 0) -- range {0.00 .. 999999.99}
 );
