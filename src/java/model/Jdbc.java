@@ -339,19 +339,30 @@ public class Jdbc {
         // Pull all appointments that don't have an end time and have the username associated with it.
         int i = 0;
         while (rs.next()) {
-            appointmentList[i].ID = rs.findColumn("ID");
-            appointmentList[i].userID = rs.findColumn(2);
-            appointmentList[i].appointmentDate = rs.findColumn(3);
-            appointmentList[i].startTime = rs.findColumn(4);
-            appointmentList[i].endTime = rs.findColumn(5);
+            appointmentList[i].ID = rs.findColumn("ID");            // ID
+            appointmentList[i].userID = rs.findColumn(2);           // CLIENT_ID
+            appointmentList[i].appointmentDate = rs.findColumn(3);  // START_DATE
+            appointmentList[i].startTime = rs.findColumn(4);        // START_TIME
+            appointmentList[i].endTime = rs.findColumn(5);          // START_TIME
             i++;
         }
         return appointmentList;
     }
     
     public Appointment[] getStaffAppointment() {
+        select("SELECT * FROM OPERATIONS WHERE END_TIME = NULL");
         Appointment [] appointmentList = new Appointment[64];
-        // Pull all appointments.
+        // Pull all appointments that don't have an end time.
+        int i = 0;
+        while (rs.next()) {
+            appointmentList[i].ID = rs.findColumn("ID");            // ID
+            appointmentList[i].userID = rs.findColumn(1);           // EMPLOYEE_ID
+            appointmentList[i].appointmentDate = rs.findColumn(3);  // START_DATE
+            appointmentList[i].startTime = rs.findColumn(4);        // START_TIME
+            appointmentList[i].endTime = rs.findColumn(5);          // START_TIME
+            i++;
+        }
+        return appointmentList;
         return appointmentList;
     }
     
