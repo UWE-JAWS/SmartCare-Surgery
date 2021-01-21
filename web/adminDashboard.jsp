@@ -21,11 +21,10 @@
             <form method="POST" action="AdminService.do">
             <div class="box content">
                 View a table <br />
-            <input type="radio" name="tbl" value="Timetable">View Daily Patient Timetables<br/>
-            <input type="radio" name="tbl" value="NewEmp">Create an employee<br/>
-            <input type="radio" name="tbl" value="Records">Edit Employee Records<br/>
-            <input type="radio" name="tbl" value="Patient">Edit Patient Records<br/>
-            <input type="radio" name="tbl" value="Documents">Generate Weekly Documents<br/>
+            <input type="radio" name="tbl" value="Timetable">View Daily Patient Timetables<br />
+            <input type="radio" name="tbl" value="NewEmp">Create an employee<br />
+            <input type="radio" name="tbl" value="Records">Edit Records<br />
+            <input type="radio" name="tbl" value="Documents">Generate Weekly Documents<br />
             <input type=submit value="Action"> <br /><div class="content a">
                 
             </form> 

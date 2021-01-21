@@ -8,6 +8,7 @@ package com;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import model.Jdbc;
 /**
  *
  * @author Dylan
+ * @author Simeon Dobchev
+ * @author Joshua Saxby
  */
 public class AdminServlet extends HttpServlet {
 
@@ -51,24 +54,28 @@ public class AdminServlet extends HttpServlet {
             throw new ServletException("Not logged in");
         }
         
-        if(request.getParameter("tbl").equals("Timetable")){
-            request.getRequestDispatcher("adminDashboard.jsp").forward(request, response);
-        } 
-        else if(request.getParameter("tbl").equals("Records")){
-            request.setAttribute("msg", "");
-            request.getRequestDispatcher("/WEB-INF/EmployeeAddress.jsp").forward(request, response);    
-        }  
-        else if(request.getParameter("tbl").equals("Patient")){
-            request.setAttribute("msg", "");
-            request.getRequestDispatcher("/WEB-INF/patientDetails.jsp").forward(request, response);    
-        }  
-        else if(request.getParameter("tbl").equals("Documents")){
-            request.getRequestDispatcher("/WEB-INF/weeklyDocuments.jsp").forward(request, response);    
-        }  
-        else if(request.getParameter("tbl").equals("NewEmp")){
-            request.setAttribute("msg", "");
-            request.getRequestDispatcher("/WEB-INF/employee.jsp").forward(request, response);    
-        }  
+        switch (request.getParameter("tbl")) {
+            case "Timetable":
+                request.getRequestDispatcher("adminDashboard.jsp").forward(request, response);
+                break;
+            case "Records":
+                request.setAttribute("msg", "new");
+                request.getRequestDispatcher("/WEB-INF/EmployeeAddress.jsp").forward(request, response);
+                break;
+            case "Documents": {
+                request.setAttribute("msg", "");
+                request.setAttribute("fees", new FeesDB().getFees());
+                request.getRequestDispatcher("/WEB-INF/AdminFees.jsp").forward(request, response);
+                break;   
+            }
+            case "NewEmp":
+                request.setAttribute("msg", "new");
+                request.getRequestDispatcher("/WEB-INF/employee.jsp").forward(request, response);  
+                break;
+            default:
+                System.out.println("Should not reach here");
+                break;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
