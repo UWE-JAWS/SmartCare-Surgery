@@ -30,6 +30,10 @@ public class doctorDashboard extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        // logged in user guard
+        if (request.getSession().getAttribute("loggedInUser") == null) {
+            throw new ServletException("Not logged in");
+        }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");

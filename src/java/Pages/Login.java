@@ -56,6 +56,8 @@ public class Login extends HttpServlet {
         if(jdbc.login(query[0],query[1])){
             String job = jdbc.retriveType(query[0]);
             String destination = jobs(job);
+            // store username for retrieval when needed
+            session.setAttribute("loggedInUser", query[0]);
             request.getRequestDispatcher(destination).forward(request, response);
             //String Name = jdbc.retriveName(query[0]);
             //request.setAttribute("message", Name +" Welcome back");
@@ -68,18 +70,20 @@ public class Login extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/user.jsp").forward(request, response);
     }
       
-      public String jobs(String string){
+      public String jobs(String role) throws ServletException{
           String dest = null;
-          if(string.equals("doctor")){
-               dest = "/doctorDashboard.jsp";
-          }else if(string.equals("nurse")){
-               dest = "/nurseDashboard.jsp";
-          }else if(string.equals("admin")){
-               dest = "/adminDashboard.jsp";
-          }else if(string.equals("client")){
-               dest = "/patientDashboard.jsp";
+          switch (role) {
+          case "A": // Admin
+              return "/adminDashboard.jsp";
+          case "D": // Doctor
+              return "/doctorDashboard.jsp";
+          case "N": // Nurse
+              return "/nurseDashboard.jsp";
+          case "C": // Client
+              return "/patientDashboard.jsp";
+          default:
+              throw new ServletException("Invalid User role type given");
           }
-          return dest;
     }
         
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

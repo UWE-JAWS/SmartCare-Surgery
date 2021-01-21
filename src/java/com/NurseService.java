@@ -49,6 +49,11 @@ public class NurseService extends HttpServlet {
         
         if((Connection)request.getServletContext().getAttribute("connection")==null)
             request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
+
+        // logged in user guard
+        if (session.getAttribute("loggedInUser") == null) {
+            throw new ServletException("Not logged in");
+        }
         
         if(request.getParameter("tbl").equals("Timetable")){
             request.setAttribute("msg", "new");

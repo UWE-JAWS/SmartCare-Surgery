@@ -102,7 +102,7 @@ public class Jdbc {
     public String retrieve(String user) throws SQLException{
         
         StringBuilder sb = new StringBuilder();
-        select("select CHARGE from OPERATIONS where CID='"+user.trim()+"'");
+        select("SELECT charge FROM Operations WHERE client_id = ?", user.trim());
         
         if (rs==null)
             System.out.println("rs is null");
@@ -115,7 +115,7 @@ public class Jdbc {
     }
     public String retriveType(String user) throws SQLException {
     String type = "";
-    select("select ROLE from users where UNAME=?", user.trim());
+    select("SELECT role FROM Users WHERE username = ?", user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
@@ -142,7 +142,7 @@ public class Jdbc {
 
     public String retriveClientID(String user) throws SQLException {
     String id = "";
-    select("select CID from Clients where UNAME='"+user.trim()+"'");
+    select("SELECT id FROM Clients WHERE username = ?", user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
@@ -155,7 +155,7 @@ public class Jdbc {
     }
     public String retriveEmployeeID(String user) throws SQLException {
     String id = "";
-    select("select EID from EMPLOYEE where UNAME='"+user.trim()+"'");
+    select("SELECT id FROM Employees WHERE username = ?", user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
@@ -169,7 +169,7 @@ public class Jdbc {
     
     public String retriveName(String user) throws SQLException {
     String type = "";
-    select("select ename from employee where UNAME=?", user.trim());
+    select("SELECT name FROM Employees WHERE username = ?", user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
@@ -184,7 +184,8 @@ public class Jdbc {
     public boolean exists(String user) {
         boolean bool = false;
         try  {
-            select("select UNAME from users where UNAME=?", user);
+            // SELECT 1 instead of SELECT <columns> as we're discarding result anyway
+            select("SELECT 1 FROM Users WHERE username = ?", user);
             if(rs.next()) {
                 System.out.println("TRUE");         
                 bool = true;
@@ -198,7 +199,7 @@ public class Jdbc {
     public boolean login(String user, String password){
         boolean bool = false;
         try{
-            select("select uname from users where UNAME=? and PASSWD=?", user, password);
+            select("SELECT 1 FROM Users WHERE username = ? AND password = ?", user, password);
             if(rs.next()){
                 System.out.println("Login Successfull");
                 bool = true;
@@ -211,7 +212,7 @@ public class Jdbc {
         public void insertEmpAdress(String[] str){
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO EMPLOYEE VALUES (?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO Employees VALUES (DEFAULT, ?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, str[0].trim()); 
             ps.setString(2, str[1].trim());
             ps.setString(3, str[2]);
@@ -227,7 +228,7 @@ public class Jdbc {
          public void insertPatAdress(String[] str){
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO CLIENTS(CNAME,CADDRESS,CTYPE,UNAME) VALUES (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO Clients(name, address, type, username) VALUES (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, str[0].trim()); 
             ps.setString(2, str[1].trim());
             ps.setString(3, str[2].trim());
@@ -245,7 +246,7 @@ public class Jdbc {
     public void insert(String[] str){
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO Users VALUES (?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO Users VALUES (DEFAULT, ?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, str[0].trim()); 
             ps.setString(2, str[1].trim());
             ps.setString(3, str[2]);
@@ -262,7 +263,7 @@ public class Jdbc {
     public void bookApp(String[] str){
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO BOOKING_SLOTS(EID,CID,SDATE,STIME) VALUES (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO Operations(employee_id, client_id, start_date, start_time) VALUES (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setInt(1, Integer.parseInt(str[0].trim())); 
             ps.setInt(2, Integer.parseInt(str[1].trim()));
             ps.setString(3,  str[2].trim());
@@ -279,7 +280,7 @@ public class Jdbc {
     public void update(String[] str) {
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("Update Users Set passwd=? where uname=?",PreparedStatement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("UPDATE Users SET password = ? WHERE username = ?",PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, str[1].trim()); 
             ps.setString(2, str[0].trim());
             ps.executeUpdate();
@@ -294,7 +295,7 @@ public class Jdbc {
       
       // FIXME: Not SQL-injection tolerant
       String query = "DELETE FROM Users " +
-                   "WHERE uname = '"+user.trim()+"'";
+                   "WHERE username = '"+user.trim()+"'";
       
         try {
             statement = connection.prepareStatement(query);

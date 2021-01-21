@@ -16,7 +16,9 @@
         <form method="POST" action="UserService.do">
         <p />
             View a table <br />
+            <% if(request.getSession().getAttribute("loggedInUser") != null) { %>
             <input type="radio" name="tbl" value="NewUser">Register<br />
+            <% } %>
             <input type="radio" name="tbl" value="Login">Login<br />
             <input type=submit value="Action"> <br />
         </form> 

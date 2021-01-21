@@ -34,6 +34,11 @@ public class EmpAddress extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
        
          HttpSession session = request.getSession(false);
+         
+        // logged in user guard
+        if (session.getAttribute("loggedInUser") == null) {
+            throw new ServletException("Not logged in");
+        }
         
         Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 
         if (jdbc == null)

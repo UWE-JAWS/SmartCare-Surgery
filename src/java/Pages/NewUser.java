@@ -34,10 +34,15 @@ public class NewUser extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         
-        String [] query = new String[3];
-        query[0] = (String)request.getParameter("username");
-        query[1] = (String)request.getParameter("password");
-        query[2] = "client";
+        
+        // logged in user guard
+        if (session.getAttribute("loggedInUser") == null) {
+            throw new ServletException("Not logged in");
+        }
+        
+        String username = (String)request.getParameter("username");
+        String password = (String)request.getParameter("password");
+        String userType = "client";
         //String insert = "INSERT INTO `Users` (`username`, `password`) VALUES ('";
       
         Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 
@@ -45,15 +50,15 @@ public class NewUser extends HttpServlet {
         if (jdbc == null)
             request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
         
-        if(query[0].equals("") ) {
+        if(username == null || username.equals("") ) {
             request.setAttribute("message", "Username cannot be NULL");
         } 
-        else if(jdbc.exists(query[0])){
-            request.setAttribute("message", query[0]+" is already taken as username");
+        else if(jdbc.exists(username)){
+            request.setAttribute("message", username +" is already taken as username");
         }
         else {
-            jdbc.insert(query);
-            request.setAttribute("message", query[0]+" is added");
+            jdbc.insert(new String[] {username, password, userType});
+            request.setAttribute("message", username + " is added");
         }
          
         request.getRequestDispatcher("/WEB-INF/user.jsp").forward(request, response);
