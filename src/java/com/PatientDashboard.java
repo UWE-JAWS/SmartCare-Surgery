@@ -57,7 +57,7 @@ public class PatientDashboard extends HttpServlet {
         } 
         else if(request.getParameter("tbl").equals("Prescription")){
             request.setAttribute("msg", "login");
-            request.getRequestDispatcher("/WEB-INF/managePrescription.jsp").forward(request, response);    
+            request.getRequestDispatcher("/WEB-INF/RequestPrescriptions.jsp").forward(request, response);    
         }        
     }
 

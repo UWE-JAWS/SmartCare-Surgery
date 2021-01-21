@@ -61,7 +61,7 @@ public class NurseService extends HttpServlet {
         } 
         else if(request.getParameter("tbl").equals("Prescription")){
             request.setAttribute("msg", "login");
-            request.getRequestDispatcher("/WEB-INF/user.jsp").forward(request, response);    
+            request.getRequestDispatcher("/WEB-INF/managePrescription.jsp").forward(request, response);    
         }        
     }
       
