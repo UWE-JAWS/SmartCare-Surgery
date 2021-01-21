@@ -56,6 +56,8 @@ public class Login extends HttpServlet {
         if(jdbc.login(query[0],query[1])){
             String job = jdbc.retriveType(query[0]);
             String destination = jobs(job);
+            // store username for retrieval when needed
+            session.setAttribute("loggedInUser", query[0]);
             request.getRequestDispatcher(destination).forward(request, response);
             //String Name = jdbc.retriveName(query[0]);
             //request.setAttribute("message", Name +" Welcome back");
