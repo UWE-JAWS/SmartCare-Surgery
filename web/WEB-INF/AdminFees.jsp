@@ -9,7 +9,8 @@
     <body>
         <h1 id="textid">Administrator Fees</h1>   
         <%
-            ArrayList<Fees> fees = (ArrayList<Fees>)request.getAttribute("fees");
+            // stub implementation
+            ArrayList<Fees> fees = new ArrayList<Fees>();
         %>  
         <table>
             <tr>

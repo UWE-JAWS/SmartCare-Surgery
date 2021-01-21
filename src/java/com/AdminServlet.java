@@ -68,6 +68,7 @@ public class AdminServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/employee.jsp").forward(request, response);  
                 break;
             default:
+                System.out.println("Should not reach here");
                 break;
         }
     }
