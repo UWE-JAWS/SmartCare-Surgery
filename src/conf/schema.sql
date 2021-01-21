@@ -28,6 +28,7 @@ CREATE TABLE Operations(
     client_id INT NOT NULL REFERENCES Clients(id),
     start_date DATE,
     start_time TIME,
+    end_time TIME,
     slot SMALLINT,
     charge DECIMAL(8, 2) CONSTRAINT charge_constraint CHECK (charge >= 0) -- range {0.00 .. 999999.99}
 );

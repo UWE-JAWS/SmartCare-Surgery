@@ -27,12 +27,10 @@ public class doctorDashboard extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    staffTimeout stfTimeOut = new staffTimeout();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        stfTimeOut.startTimer();
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -45,10 +43,6 @@ public class doctorDashboard extends HttpServlet {
             out.println("<h1>Servlet doctorDashboard at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        }
-        if (Thread.interrupted()) {
-            
-            return;
         }
     }
 
