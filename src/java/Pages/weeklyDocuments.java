@@ -38,6 +38,12 @@ public class weeklyDocuments extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession(false);
+        
+        // logged in user guard
+        if (session.getAttribute("loggedInUser") == null) {
+            throw new ServletException("Not logged in");
+        }
+        
         String documents = "";
         String [] query = new String[2];
         query[0] = (String)request.getParameter("startDate");

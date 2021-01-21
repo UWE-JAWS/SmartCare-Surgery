@@ -35,6 +35,11 @@ public class patientDetails extends HttpServlet {
        
          HttpSession session = request.getSession(false);
         
+        // logged in user guard
+        if (session.getAttribute("loggedInUser") == null) {
+            throw new ServletException("Not logged in");
+        }
+        
         Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 
         if (jdbc == null)
             request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);

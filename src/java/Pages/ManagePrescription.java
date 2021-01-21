@@ -34,6 +34,11 @@ public class ManagePrescription extends HttpServlet {
         
         HttpSession session = request.getSession();
         
+        // logged in user guard
+        if (session.getAttribute("loggedInUser") == null) {
+            throw new ServletException("Not logged in");
+        }
+        
         request.getRequestDispatcher("/WEB-INF/managePrescription.jsp").forward(request, response);
     }
 

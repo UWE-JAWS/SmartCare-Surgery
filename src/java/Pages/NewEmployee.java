@@ -35,6 +35,11 @@ public class NewEmployee extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         
+        // logged in user guard
+        if (session.getAttribute("loggedInUser") == null) {
+            throw new ServletException("Not logged in");
+        }
+        
         String [] query = new String[3];
         query[0] = (String)request.getParameter("username");
         query[1] = (String)request.getParameter("password");

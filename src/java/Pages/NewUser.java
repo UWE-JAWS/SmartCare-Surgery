@@ -34,6 +34,12 @@ public class NewUser extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         
+        
+        // logged in user guard
+        if (session.getAttribute("loggedInUser") == null) {
+            throw new ServletException("Not logged in");
+        }
+        
         String username = (String)request.getParameter("username");
         String password = (String)request.getParameter("password");
         String userType = "client";
