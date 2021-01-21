@@ -5,6 +5,7 @@
  */
 package model;
 
+import Pages.Appointment;
 import static com.sun.xml.bind.util.CalendarConv.formatter;
 import java.sql.Connection;
 import java.sql.Date;
@@ -315,6 +316,45 @@ public class Jdbc {
             System.out.println(e);
         }
     }
+       
+    public void addNewAppointment(String username, String role, Date appointmentDate) {
+        // Adds a new appointment
+    }
+    
+    public void startAppointment(int ID, Time currTime) {
+        // Starts an appointment
+    }
+    
+    public void endAppointment(int ID, Time currTime) {
+        // Ends an appointment
+    }
+    
+    public void removeAppointment(int ID) {
+        // Removes the database entry with ID as its ID
+    }
+    
+    public Appointment[] getClientAppointments(String username) {
+        select("SELECT * FROM OPERATIONS WHERE CLIENT_ID = " + username.trim() + " END_TIME = NULL");
+        Appointment [] appointmentList = new Appointment[64];
+        // Pull all appointments that don't have an end time and have the username associated with it.
+        int i = 0;
+        while (rs.next()) {
+            appointmentList[i].ID = rs.findColumn("ID");
+            appointmentList[i].userID = rs.findColumn(2);
+            appointmentList[i].appointmentDate = rs.findColumn(3);
+            appointmentList[i].startTime = rs.findColumn(4);
+            appointmentList[i].endTime = rs.findColumn(5);
+            i++;
+        }
+        return appointmentList;
+    }
+    
+    public Appointment[] getStaffAppointment() {
+        Appointment [] appointmentList = new Appointment[64];
+        // Pull all appointments.
+        return appointmentList;
+    }
+    
     public static void main(String[] args) throws SQLException, ParseException {
         String str = "select * from users";
         String insert = "INSERT INTO `Users` (`uname`, `passwd`, 'job') VALUES ('meaydin', 'meaydin','doctor')";
