@@ -26,8 +26,8 @@
                 <tr>
                     <td>Doctor/Nurse Name:</td>
                     <td><select name="docName" id="docName">
-                    <option value="meaydin">Mehmet Aydin</option>
-                    <option value="eaydin">Emin Aydin</option></select></td>
+                    <option value="dbeat">Dr Beat</option>
+                    <option value="fnightingale">Florence Nightingale</option></select></td>
                 </tr>
                 <tr>
                     <td>Date of Appointment:</td>

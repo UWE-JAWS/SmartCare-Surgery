@@ -54,9 +54,9 @@ public class BookAppointment extends HttpServlet {
         }
 
         // logged in user guard
-        if (session.getAttribute("loggedInUser") == null) {
+       /* if (session.getAttribute("loggedInUser") == null) {
             throw new ServletException("Not logged in");
-        }
+        }*/
         
         if(query[0].equals("") ) {
             request.setAttribute("message", "Username cannot be NULL");

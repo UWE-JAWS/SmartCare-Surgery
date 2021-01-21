@@ -51,7 +51,7 @@ public class EmpAddress extends HttpServlet {
             query[2] = (String)request.getParameter("username");  
             
             if(jdbc.exists(query[2])) {
-                jdbc.insertEmpAdress(query);
+                jdbc.insertEmpDetails(query);
                 request.setAttribute("msg", ""+query[0]+"'s address has been updated");
 
             }

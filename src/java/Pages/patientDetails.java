@@ -35,11 +35,6 @@ public class patientDetails extends HttpServlet {
        
          HttpSession session = request.getSession(false);
         
-        // logged in user guard
-        if (session.getAttribute("loggedInUser") == null) {
-            throw new ServletException("Not logged in");
-        }
-        
         Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 
         if (jdbc == null)
             request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
@@ -50,6 +45,8 @@ public class patientDetails extends HttpServlet {
             query[1] = (String)request.getParameter("address");
             query[2] = (String)request.getParameter("patientType");
             query[3] = (String)request.getParameter("username");  
+            query[4] = (String)request.getParameter("DoB");
+            
             
             if(jdbc.exists(query[3])) {
                 jdbc.insertPatAdress(query);

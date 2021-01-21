@@ -1,7 +1,7 @@
 <%-- 
-    Document   : driver
-    Created on : 01-Nov-2015, 15:18:08
-    Author     : me-aydin
+    Document   : login
+    Created on : 21-Jan-2021, 15:32:41
+    Author     : Dylan
 --%>
 
 <%@page import="model.Jdbc"%>
@@ -19,11 +19,11 @@
             String url = "";
         %>
         
-        <form method="POST" action="NewUser.do">     
+        <form method="POST" action="Login.do">     
             <table>
                 <tr>
                     <th></th>
-                    <th>Please provide your following details as a client:</th>
+                    <th>Please provide your following details:</th>
                 </tr>
                 <tr>
                     <td>Username:</td>
@@ -32,22 +32,6 @@
                 <tr>
                     <td>Password:</td>
                     <td><input type="password" name="password"/></td>
-                </tr>
-                <tr>
-                    <td>Full Name</td>
-                    <td><input type="text" name="name"/></td>
-                </tr>
-                <tr>
-                    <td>Address:</td>
-                    <td><input type="text" name="address"/></td>
-                </tr>
-                <tr>
-                    <td>Date of Birth:</td>
-                    <td><input type="date" id="date" name="DoB"/></td>
-                </tr>
-                <tr>
-                    <td>Client type:</td>
-                    <td><input type="text" name="type"/></td>
                 </tr>
                 <tr> 
                     <td> <input type="submit" value="Register"/></td>
