@@ -1,13 +1,18 @@
-package Pages;
+package com;
 
+import java.math.BigDecimal;
+/*
+ * @author Simeon Dobchev
+ * @author Joshua Saxby
+ */
 public class Fees {
 
     private int ID;
     private int PatientID;
-    private double TransactionAmount;
+    private BigDecimal TransactionAmount;
     private String TransactionDate;
 
-    public Fees(int id, int patientId, double transactionAmount, String transactionDate) {
+    public Fees(int id, int patientId, BigDecimal transactionAmount, String transactionDate) {
         this.ID = id;
         this.PatientID = patientId;
         this.TransactionAmount = transactionAmount;
@@ -38,11 +43,11 @@ public class Fees {
         this.TransactionDate = transactionDate;
     }
 
-    public double getTransactionAmount() {
+    public BigDecimal getTransactionAmount() {
         return TransactionAmount;
     }
 
-    public void setTransactionAmount(double transactionAmount) {
+    public void setTransactionAmount(BigDecimal transactionAmount) {
         this.TransactionAmount = transactionAmount;
     }
 

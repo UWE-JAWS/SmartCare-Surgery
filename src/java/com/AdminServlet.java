@@ -8,6 +8,7 @@ package com;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import model.Jdbc;
 /**
  *
  * @author Dylan
+ * @author Simeon Dobchev
+ * @author Joshua Saxby
  */
 public class AdminServlet extends HttpServlet {
 
@@ -59,10 +62,12 @@ public class AdminServlet extends HttpServlet {
                 request.setAttribute("msg", "new");
                 request.getRequestDispatcher("/WEB-INF/EmployeeAddress.jsp").forward(request, response);
                 break;
-            case "Documents":
+            case "Documents": {
                 request.setAttribute("msg", "");
+                request.setAttribute("fees", new FeesDB().getFees());
                 request.getRequestDispatcher("/WEB-INF/AdminFees.jsp").forward(request, response);
-                break;
+                break;   
+            }
             case "NewEmp":
                 request.setAttribute("msg", "new");
                 request.getRequestDispatcher("/WEB-INF/employee.jsp").forward(request, response);  

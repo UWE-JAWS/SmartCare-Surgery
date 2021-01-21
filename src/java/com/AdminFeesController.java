@@ -1,6 +1,6 @@
 package com;
 
-import Pages.Fees;
+//import Pages.Fees;
 import com.FeesDB;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AdminFeesController extends HttpServlet {
-
+    /*
+     * @author Simeon Dobchev
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

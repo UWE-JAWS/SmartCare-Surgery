@@ -1,4 +1,4 @@
-<%@page import="Pages.Fees"%>
+<%@page import="com.Fees"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,11 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <h1 id="textid">Administrator Fees</h1>   
-        <%
-            // stub implementation
-            ArrayList<Fees> fees = new ArrayList<Fees>();
-        %>  
+        <h1 id="textid">Administrator Fees</h1>
         <table>
             <tr>
                 <th>ID</th>
@@ -20,12 +16,12 @@
                 <th>Transaction Date</th>
             </tr>             
             <% 
-                for (int i = 0; i < fees.size(); i++) {
+                for (Fees fee : (ArrayList<Fees>)request.getAttribute("fees")) {
                     out.println("<tr>");
-                    out.println("<td>" + fees.get(i).getID() + "</td>");
-                    out.println("<td>" + fees.get(i).getPatientID() + "</td>");
-                    out.println("<td>" + fees.get(i).getTransactionAmount() + "</td>");
-                    out.println("<td>" + fees.get(i).getTransactionDate() + "</td>");
+                    out.println("<td>" + fee.getID() + "</td>");
+                    out.println("<td>" + fee.getPatientID() + "</td>");
+                    out.println("<td>" + fee.getTransactionAmount() + "</td>");
+                    out.println("<td>" + fee.getTransactionDate() + "</td>");
                     out.println("</tr>");
                 }
             %>

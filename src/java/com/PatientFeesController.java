@@ -6,11 +6,13 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Pages.Fees;
+import com.Fees;
 import com.FeesDB;
 
 public class PatientFeesController {
-
+    /*
+     * @author Simeon Dobchev
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
