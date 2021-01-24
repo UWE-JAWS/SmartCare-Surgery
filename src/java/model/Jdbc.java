@@ -142,7 +142,7 @@ public class Jdbc {
 
     public String retriveClientID(String user) throws SQLException {
     String id = "";
-    select("select CLIENTS.ID from Clients where USERNAME= ?'",user.trim());
+    select("select CLIENTS.ID from Clients where USERNAME= ?",user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
@@ -155,7 +155,7 @@ public class Jdbc {
     }
     public String retriveEmployeeID(String user) throws SQLException {
     String id = "";
-    select("select EMPLOYEES.ID from EMPLOYEES where USERNAME='"+user.trim()+"'");
+    select("select EMPLOYEES.ID from EMPLOYEES where USERNAME=?",user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
