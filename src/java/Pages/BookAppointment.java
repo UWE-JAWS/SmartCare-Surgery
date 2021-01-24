@@ -64,8 +64,8 @@ public class BookAppointment extends HttpServlet {
         if(jdbc.exists(query[0])){
             String empID = jdbc.retriveEmployeeID(query[1]);
             String cliID = jdbc.retriveClientID(query[0]);
-            query[0] = cliID;
-            query[1] = empID; 
+            query[1] = cliID;
+            query[0] = empID; 
             jdbc.bookApp(query);
             //request.setAttribute("message", Name +" Welcome back");
           
