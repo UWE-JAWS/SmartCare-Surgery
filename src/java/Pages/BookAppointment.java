@@ -67,7 +67,7 @@ public class BookAppointment extends HttpServlet {
             query[1] = cliID;
             query[0] = empID; 
             jdbc.bookApp(query);
-            //request.setAttribute("message", Name +" Welcome back");
+            request.setAttribute("message", query[0] +" Your appointment for " + query[3]+ "is now booked.");
           
         }else{
             request.setAttribute("message", query[0]+ " Username not found");
