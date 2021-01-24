@@ -35,15 +35,16 @@ public class NewEmployee extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         
-        // logged in user guard
-        if (session.getAttribute("loggedInUser") == null) {
-            throw new ServletException("Not logged in");
-        }
-        
         String [] query = new String[3];
         query[0] = (String)request.getParameter("username");
         query[1] = (String)request.getParameter("password");
         query[2] = (String)request.getParameter("role");
+        
+        String [] query2 = new String[4];
+        query2[2] = (String)request.getParameter("username");
+        query2[0] = (String)request.getParameter("name");
+        query2[1] = (String)request.getParameter("address");
+        query2[3] = (String)request.getParameter("DoB");
         //String insert = "INSERT INTO `Users` (`username`, `password`) VALUES ('";
       
         Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 
@@ -59,6 +60,7 @@ public class NewEmployee extends HttpServlet {
         }
         else {
             jdbc.insert(query);
+            jdbc.insertEmpDetails(query2);
             request.setAttribute("message", query[0]+" is added");
         }
          

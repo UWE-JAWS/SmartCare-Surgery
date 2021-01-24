@@ -102,7 +102,7 @@ public class Jdbc {
     public String retrieve(String user) throws SQLException{
         
         StringBuilder sb = new StringBuilder();
-        select("SELECT charge FROM Operations WHERE client_id = ?", user.trim());
+        select("select CHARGE from OPERATIONS where ID=?'",user.trim());
         
         if (rs==null)
             System.out.println("rs is null");
@@ -115,7 +115,7 @@ public class Jdbc {
     }
     public String retriveType(String user) throws SQLException {
     String type = "";
-    select("SELECT role FROM Users WHERE username = ?", user.trim());
+    select("select ROLE from users where USERNAME=?", user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
@@ -129,7 +129,7 @@ public class Jdbc {
         
     public String weeklyRecords(String date1, String date2) throws SQLException{
         StringBuilder sb = new StringBuilder();
-        select("SELECT * FROM INVOICE WHERE ODATE BETWEEN '"+date1+"' AND '"+date2+"'");
+        select("SELECT * FROM INVOICE WHERE ODATE BETWEEN ? AND ?'",date1,date2);
         if (rs==null){
             System.out.println("rs is null");
         }else{
@@ -142,7 +142,7 @@ public class Jdbc {
 
     public String retriveClientID(String user) throws SQLException {
     String id = "";
-    select("SELECT id FROM Clients WHERE username = ?", user.trim());
+    select("select CLIENTS.ID from Clients where USERNAME= ?",user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
@@ -155,7 +155,7 @@ public class Jdbc {
     }
     public String retriveEmployeeID(String user) throws SQLException {
     String id = "";
-    select("SELECT id FROM Employees WHERE username = ?", user.trim());
+    select("select EMPLOYEES.ID from EMPLOYEES where USERNAME=?",user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
@@ -169,7 +169,7 @@ public class Jdbc {
     
     public String retriveName(String user) throws SQLException {
     String type = "";
-    select("SELECT name FROM Employees WHERE username = ?", user.trim());
+    select("select EMPLOYEES.name from employees where USERNAME=?", user.trim());
      int cols = rs.getMetaData().getColumnCount();
     while (rs.next()) {
         String[] s = new String[cols];
@@ -184,8 +184,7 @@ public class Jdbc {
     public boolean exists(String user) {
         boolean bool = false;
         try  {
-            // SELECT 1 instead of SELECT <columns> as we're discarding result anyway
-            select("SELECT 1 FROM Users WHERE username = ?", user);
+            select("select USERNAME from users where USERNAME=?", user);
             if(rs.next()) {
                 System.out.println("TRUE");         
                 bool = true;
@@ -199,7 +198,7 @@ public class Jdbc {
     public boolean login(String user, String password){
         boolean bool = false;
         try{
-            select("SELECT 1 FROM Users WHERE username = ? AND password = ?", user, password);
+            select("select USERNAME from users where USERNAME=? and PASSWORD=?", user.trim(), password.trim());
             if(rs.next()){
                 System.out.println("Login Successfull");
                 bool = true;
@@ -209,13 +208,14 @@ public class Jdbc {
         }
        return bool; 
     }
-        public void insertEmpAdress(String[] str){
+        public void insertEmpDetails(String[] str){
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO Employees VALUES (DEFAULT, ?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO EMPLOYEES(NAME,ADDRESS,USERNAME,DOB) VALUES (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, str[0].trim()); 
             ps.setString(2, str[1].trim());
-            ps.setString(3, str[2]);
+            ps.setString(3, str[2].trim());
+            ps.setString(4, str[3]);
             ps.executeUpdate();
         
             ps.close();
@@ -228,13 +228,14 @@ public class Jdbc {
          public void insertPatAdress(String[] str){
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO Clients(name, address, type, username) VALUES (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO CLIENTS(NAME,ADDRESS,TYPE,USERNAME,DOB) VALUES (?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, str[0].trim()); 
             ps.setString(2, str[1].trim());
             ps.setString(3, str[2].trim());
-            ps.setString(4,str[3]);
+            ps.setString(4,str[3].trim());
+            ps.setString(5,str[4]);
             ps.executeUpdate();
-        
+        //
             ps.close();
             System.out.println("1 row added.");
         } catch (SQLException ex) {
@@ -246,7 +247,7 @@ public class Jdbc {
     public void insert(String[] str){
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO Users VALUES (DEFAULT, ?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO Users VALUES (?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, str[0].trim()); 
             ps.setString(2, str[1].trim());
             ps.setString(3, str[2]);
@@ -263,7 +264,7 @@ public class Jdbc {
     public void bookApp(String[] str){
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("INSERT INTO Operations(employee_id, client_id, start_date, start_time) VALUES (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO BOOKING_SLOTS(EID,CID,SDATE,STIME) VALUES (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setInt(1, Integer.parseInt(str[0].trim())); 
             ps.setInt(2, Integer.parseInt(str[1].trim()));
             ps.setString(3,  str[2].trim());
@@ -280,7 +281,7 @@ public class Jdbc {
     public void update(String[] str) {
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("UPDATE Users SET password = ? WHERE username = ?",PreparedStatement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("Update Users Set password=? where username=?",PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, str[1].trim()); 
             ps.setString(2, str[0].trim());
             ps.executeUpdate();

@@ -28,6 +28,10 @@
                     <td><input type="text" name="username"/></td>
                 </tr>
                 <tr>
+                    <td>Date of Birth:</td>
+                    <td><input type="date" id="date" name="DoB"/></td>
+                </tr>
+                <tr>
                     <td>Address:</td>
                     <td><input type="text" name="address"/></td>
                 </tr>

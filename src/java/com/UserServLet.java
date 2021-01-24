@@ -51,16 +51,12 @@ public class UserServLet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
         
         if(request.getParameter("tbl").equals("NewUser")){
-            // logged in user guard
-            if (session.getAttribute("loggedInUser") == null) {
-                throw new ServletException("Not logged in");
-            }
             request.setAttribute("msg", "new");
             request.getRequestDispatcher("/WEB-INF/user.jsp").forward(request, response);
         } 
         else if(request.getParameter("tbl").equals("Login")){
             request.setAttribute("msg", "login");
-            request.getRequestDispatcher("/WEB-INF/user.jsp").forward(request, response);    
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);    
         }        
     }
       

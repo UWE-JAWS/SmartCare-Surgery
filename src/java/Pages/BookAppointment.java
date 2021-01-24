@@ -54,9 +54,9 @@ public class BookAppointment extends HttpServlet {
         }
 
         // logged in user guard
-        if (session.getAttribute("loggedInUser") == null) {
+       /* if (session.getAttribute("loggedInUser") == null) {
             throw new ServletException("Not logged in");
-        }
+        }*/
         
         if(query[0].equals("") ) {
             request.setAttribute("message", "Username cannot be NULL");
@@ -64,10 +64,10 @@ public class BookAppointment extends HttpServlet {
         if(jdbc.exists(query[0])){
             String empID = jdbc.retriveEmployeeID(query[1]);
             String cliID = jdbc.retriveClientID(query[0]);
-            query[0] = cliID;
-            query[1] = empID; 
+            query[1] = cliID;
+            query[0] = empID; 
             jdbc.bookApp(query);
-            //request.setAttribute("message", Name +" Welcome back");
+            request.setAttribute("message", query[0] +" Your appointment for " + query[3]+ "is now booked.");
           
         }else{
             request.setAttribute("message", query[0]+ " Username not found");

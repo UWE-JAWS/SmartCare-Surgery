@@ -32,6 +32,18 @@
                     <td><input type="password" name="password"/></td>
                 </tr>
                 <tr>
+                    <td>Full Name</td>
+                    <td><input type="text" name="name"/></td>
+                </tr>
+                <tr>
+                    <td>Date of Birth:</td>
+                    <td><input type="date" id="date" name="DoB"/></td>
+                </tr>
+                <tr>
+                    <td>Address:</td>
+                    <td><input type="text" name="address"/></td>
+                </tr>
+                <tr>
                     <td>Role:</td>
                     <td><input type="text" name="role"/></td>
                 </tr>
